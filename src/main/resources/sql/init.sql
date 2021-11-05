@@ -1,0 +1,20 @@
+CREATE DATABASE IF NOT EXISTS food;
+USE food;
+
+CREATE TABLE IF NOT EXISTS food_category(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS food(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    food_category_id BIGINT,
+    description VARCHAR(200),
+    calories_per_100_g INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (food_category_id)  REFERENCES food_category (id)
+    ON DELETE CASCADE
+);
