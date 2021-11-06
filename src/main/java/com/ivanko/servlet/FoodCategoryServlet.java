@@ -18,9 +18,18 @@ import com.ivanko.service.api.FoodCategoryService;
 import com.ivanko.service.impl.FoodCategoryServiceImpl;
 
 public class FoodCategoryServlet extends HttpServlet {
-    DatasourceFactory datasourceFactory = new DatasourceFactory();
-    Dao<FoodCategory, Long> foodCategoryDao = new FoodCategoryDaoImpl(datasourceFactory);
-    FoodCategoryService foodCategoryService = new FoodCategoryServiceImpl(foodCategoryDao);
+    FoodCategoryService foodCategoryService;
+
+    public FoodCategoryServlet() {
+        DatasourceFactory datasourceFactory = new DatasourceFactory();
+        Dao<FoodCategory, Long> foodCategoryDao = new FoodCategoryDaoImpl(datasourceFactory);
+
+        foodCategoryService = new FoodCategoryServiceImpl(foodCategoryDao);
+    }
+
+    public FoodCategoryServlet(FoodCategoryService foodCategoryService) {
+        this.foodCategoryService = foodCategoryService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
