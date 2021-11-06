@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import com.ivanko.dao.api.Dao;
 import com.ivanko.exception.BusinessRuleException;
 import com.ivanko.model.Food;
+import com.ivanko.model.FoodCategory;
 
 public interface FoodService {
     /**
@@ -54,4 +56,8 @@ public interface FoodService {
      * @throws SQLException
      */
     Optional<Food> findById(long id) throws SQLException;
+
+    void setFoodDao(Dao<Food, Long> dao);
+
+    void setFoodCategoryDao(Dao<FoodCategory, Long> dao);
 }
