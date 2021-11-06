@@ -19,10 +19,22 @@ import com.ivanko.service.api.FoodService;
 import com.ivanko.service.impl.FoodServiceImpl;
 
 public class FoodServlet extends HttpServlet {
-    DatasourceFactory datasourceFactory = new DatasourceFactory();
-    Dao<Food, Long> foodDao = new FoodDaoImpl(datasourceFactory);
-    Dao<FoodCategory, Long> foodCategoryDao = new FoodCategoryDaoImpl(datasourceFactory);
-    FoodService foodService = new FoodServiceImpl(foodDao, foodCategoryDao);
+    FoodService foodService;
+    FoodCategoryService foodCategoryService;
+
+    // Helper constructor to be used with mockito to inject service mocks
+    public FoodServlet(FoodService foodService, FoodCategoryService foodCategoryService) {
+        this.foodService = foodService;
+        this.foodCategoryService = foodCategoryService;
+    }
+
+    // Use default constructor to set food service, I'm more than sure that this approach is incorrect
+    // but I don't know how to inject dependencies in servlets without Spring and javax beans
+    public FoodServlet() {
+        Dao<Food, Long> foodDao = new FoodDaoImpl(new DatasourceFactory());
+        Dao<FoodCategory, Long>  foodCategoryDao = new FoodCategoryDaoImpl(new DatasourceFactory());
+        foodService = new FoodServiceImpl(foodDao, foodCategoryDao);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
