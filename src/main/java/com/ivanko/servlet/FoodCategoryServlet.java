@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +39,11 @@ public class FoodCategoryServlet extends HttpServlet {
         handlePost(req, resp);
     }
 
+    /*
+        This method handles get requests to make doGet less cluttered.
+        Depending on .servletPath() different forwardings take place.
+        An exception is thrown if servletPath is not valid
+    */
     private void handleGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] servletPath = req.getServletPath().substring(1).split("/");
         String path = servletPath.length == 1 ? "/" : servletPath[servletPath.length - 1];
@@ -85,6 +88,11 @@ public class FoodCategoryServlet extends HttpServlet {
         }
     }
 
+    /*
+        Similar to handleGet, but is called in doPost.
+        Depending on 'action' param different service methods get called
+        If action is invalid a redirect to the error page happens.
+     */
     private void handlePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 

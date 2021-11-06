@@ -4,6 +4,10 @@ import com.ivanko.model.Food;
 
 import java.util.Date;
 
+/**
+ * Helper class that is used to wrap Food object to have category name.
+ * In Food model there's only a reference to category name.
+ */
 public class FoodWrapper extends Food {
     private String category;
 

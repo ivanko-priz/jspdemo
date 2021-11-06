@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import com.ivanko.model.Food;
 import com.ivanko.util.wrapper.FoodWrapper;
 
+/**
+ *  Mapper that takes in a result set and converts it to Food object
+ *  as database column names use different naming convention
+ */
 public class SqlResultToFoodMapper {
     public static Food mapToFood(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong("id");

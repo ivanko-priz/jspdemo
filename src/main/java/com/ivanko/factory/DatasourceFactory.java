@@ -12,6 +12,9 @@ import java.util.Properties;
 import javax.sql.DataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+/**
+   Creates connection to a database using db.properties file
+ */
 public class DatasourceFactory {
     private DataSource ds;
 
@@ -20,6 +23,7 @@ public class DatasourceFactory {
         String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("properties/db.properties")).getPath();
 
         try (InputStream is = new FileInputStream(rootPath)) {
+            // Loading db.properties file with db credentials
             Properties prop = new Properties();
             prop.load(is);
 
@@ -37,6 +41,10 @@ public class DatasourceFactory {
         this.ds = ds;
     }
 
+    /*
+        Constructor to allow use DatasourceFactory in integration tests
+        as TestContainers launches a  db container on a random port.
+     */
     public DatasourceFactory(int port) {
         MysqlDataSource ds = new MysqlDataSource();
         String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("properties/db.properties")).getPath();

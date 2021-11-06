@@ -22,14 +22,17 @@ public class FoodServlet extends HttpServlet {
     FoodService foodService;
     FoodCategoryService foodCategoryService;
 
-    // Helper constructor to be used with mockito to inject service mocks
+    /*
+        Helper constructor to be used with mockito to inject service mocks
+     */
     public FoodServlet(FoodService foodService, FoodCategoryService foodCategoryService) {
         this.foodService = foodService;
         this.foodCategoryService = foodCategoryService;
     }
 
-    // Use default constructor to set food service, I'm more than sure that this approach is incorrect
-    // but I don't know how to inject dependencies in servlets without Spring and javax beans
+    /*
+        Use default constructor to set food service, a better approach would be to use Spring's @Autowired
+     */
     public FoodServlet() {
         Dao<Food, Long> foodDao = new FoodDaoImpl(new DatasourceFactory());
         Dao<FoodCategory, Long>  foodCategoryDao = new FoodCategoryDaoImpl(new DatasourceFactory());
@@ -46,6 +49,11 @@ public class FoodServlet extends HttpServlet {
         handlePost(req, resp);
     }
 
+    /*
+        This method handles get requests to make doGet less cluttered.
+        Depending on .servletPath() different forwardings take place.
+        An exception is thrown if servletPath is not valid
+     */
     private void handleGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] servletPath = req.getServletPath().substring(1).split("/");
         String path = servletPath.length == 1 ? "/" : servletPath[servletPath.length - 1];
@@ -96,6 +104,11 @@ public class FoodServlet extends HttpServlet {
         }
     }
 
+    /*
+        Similar to handleGet, but is called in doPost.
+        Depending on 'action' param different service methods get called
+        If action is invalid a redirect to the error page happens.
+     */
     private void handlePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
