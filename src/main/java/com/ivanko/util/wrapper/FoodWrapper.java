@@ -12,6 +12,9 @@ public class FoodWrapper extends Food {
         this.category = category;
     }
 
+    // Empty constructor for mocks tests
+    public FoodWrapper() {}
+
     public String getCategory() {
         return category;
     }
