@@ -78,7 +78,7 @@ public class FoodCategoryDaoImplTest {
         foodCategoryDao.delete(id);
 
         verify(preparedStatement, times(1)).setLong(1, id);
-        verify(preparedStatement, times(1)).execute();
+        verify(preparedStatement, times(1)).executeUpdate();
     }
 
     @Test
