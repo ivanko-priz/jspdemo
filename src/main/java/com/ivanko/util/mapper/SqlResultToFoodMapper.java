@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import com.ivanko.model.Food;
 import com.ivanko.util.wrapper.FoodWrapper;
 
-public class MapSqlResultToFood {
+public class SqlResultToFoodMapper {
     public static Food mapToFood(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong("id");
         String name = resultSet.getString("name");

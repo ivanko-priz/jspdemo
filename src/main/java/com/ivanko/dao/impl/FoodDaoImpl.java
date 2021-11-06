@@ -8,7 +8,7 @@ import java.util.Optional;
 import com.ivanko.dao.api.Dao;
 import com.ivanko.factory.DatasourceFactory;
 import com.ivanko.model.Food;
-import com.ivanko.util.mapper.MapSqlResultToFood;
+import com.ivanko.util.mapper.SqlResultToFoodMapper;
 import com.ivanko.util.wrapper.FoodWrapper;
 
 public class FoodDaoImpl implements Dao<Food, Long> {
@@ -24,7 +24,7 @@ public class FoodDaoImpl implements Dao<Food, Long> {
 
     @Override
     public boolean create(Food obj) throws SQLException {
-        String sql = "INSERT INTO food (name, food_category_id, description, calories_per_100_g) VALUES (?, ?, ?, ?)";
+        final String sql = "INSERT INTO food (name, food_category_id, description, calories_per_100_g) VALUES (?, ?, ?, ?)";
         Connection conn = datasourceFactory.getConnection();
 
         PreparedStatement statement;
@@ -86,7 +86,7 @@ public class FoodDaoImpl implements Dao<Food, Long> {
         Optional<Food> result;
 
         if (resultSet.next()) {
-            Food food = MapSqlResultToFood.mapToFood(resultSet);
+            Food food = SqlResultToFoodMapper.mapToFood(resultSet);
             result = Optional.of(food);
         } else {
             result = Optional.empty();
@@ -105,7 +105,7 @@ public class FoodDaoImpl implements Dao<Food, Long> {
         ArrayList<Food> result = new ArrayList<>(resultSet.getFetchSize());
 
         while(resultSet.next()) {
-            Food food = MapSqlResultToFood.mapToFood(resultSet);
+            Food food = SqlResultToFoodMapper.mapToFood(resultSet);
             result.add(food);
         }
 
@@ -122,7 +122,7 @@ public class FoodDaoImpl implements Dao<Food, Long> {
         ArrayList<FoodWrapper> result = new ArrayList<>(resultSet.getFetchSize());
 
         while(resultSet.next()) {
-            FoodWrapper food = MapSqlResultToFood.mapToWrapper(resultSet);
+            FoodWrapper food = SqlResultToFoodMapper.mapToWrapper(resultSet);
             result.add(food);
         }
 
