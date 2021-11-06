@@ -80,7 +80,7 @@ public class FoodDaoImpl implements Dao<Food, Long> {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setLong(1, aLong);
 
-            return statement.execute();
+            return statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw e;
         }
