@@ -57,7 +57,7 @@ public class FoodDaoImplIntegrationTest {
     public void afterEach() throws SQLException {
         try (Connection conn = datasourceFactory.getConnection()) {
             Statement s = conn.createStatement();
-            s.execute("TRUNCATE food_category;");
+            s.execute("TRUNCATE food;");
         }
     }
 
