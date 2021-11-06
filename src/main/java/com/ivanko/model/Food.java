@@ -2,6 +2,10 @@ package com.ivanko.model;
 
 import java.util.Date;
 
+/**
+ *  Food model stores information about food:
+ *  id name, description, category id, calories per 100 grams and creation date
+ */
 public class Food {
     private long id;
     private String name;

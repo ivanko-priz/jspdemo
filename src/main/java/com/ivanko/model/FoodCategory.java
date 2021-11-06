@@ -2,6 +2,9 @@ package com.ivanko.model;
 
 import java.util.Date;
 
+/**
+ * FoodCategory stores information about a category to which a particular food may belong
+ */
 public class FoodCategory {
     private long id;
     private String name;
