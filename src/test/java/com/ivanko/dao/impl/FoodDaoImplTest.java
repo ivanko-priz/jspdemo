@@ -1,6 +1,5 @@
 package com.ivanko.dao.impl;
 
-import com.ivanko.util.wrapper.FoodWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import java.util.Optional;
 import com.ivanko.dao.api.Dao;
 import com.ivanko.model.Food;
 import com.ivanko.factory.DatasourceFactory;
+import com.ivanko.util.wrapper.FoodWrapper;
 
 @ExtendWith(MockitoExtension.class)
 public class FoodDaoImplTest {
