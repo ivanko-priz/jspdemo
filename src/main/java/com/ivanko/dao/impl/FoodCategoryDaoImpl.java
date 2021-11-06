@@ -57,7 +57,7 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setLong(1, aLong);
 
-            return statement.execute();
+            return statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw e;
         }
