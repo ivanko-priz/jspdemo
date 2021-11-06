@@ -14,7 +14,7 @@ import com.ivanko.model.Food;
 import com.ivanko.factory.DatasourceFactory;
 
 @Testcontainers
-public class FoodDaoImplTest {
+public class FoodDaoImplIntegrationTest {
     @Container
     public MySQLContainer<?> mysql = new MySQLContainer<>("mysql:5.7")
             .withDatabaseName("food")
