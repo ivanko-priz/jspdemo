@@ -1,7 +1,5 @@
 package com.ivanko.dao.impl;
 
-import com.ivanko.model.FoodCategory;
-import com.ivanko.util.wrapper.FoodWrapper;
 import org.junit.jupiter.api.*;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -16,6 +14,8 @@ import java.util.List;
 import com.ivanko.dao.api.Dao;
 import com.ivanko.model.Food;
 import com.ivanko.factory.DatasourceFactory;
+import com.ivanko.model.FoodCategory;
+import com.ivanko.util.wrapper.FoodWrapper;
 
 @Testcontainers
 public class FoodDaoImplIntegrationTest {
@@ -57,7 +57,7 @@ public class FoodDaoImplIntegrationTest {
     public void afterEach() throws SQLException {
         try (Connection conn = datasourceFactory.getConnection()) {
             Statement s = conn.createStatement();
-            s.execute("TRUNCATE food;");
+            s.execute("TRUNCATE food_category;");
         }
     }
 
