@@ -23,8 +23,10 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
     public boolean create(FoodCategory obj) throws SQLException {
         final String sql = "INSERT INTO food_category (name) VALUES (?)";
 
-        try (Connection conn = datasourceFactory.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
+        try (
+                Connection conn = datasourceFactory.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql);
+        ) {
             statement.setString(1, obj.getName());
 
             return statement.execute();
@@ -37,9 +39,10 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
     public boolean update(Long aLong, FoodCategory obj) throws SQLException {
         final String sql = "UPDATE food_category SET name = ? WHERE id = ?";
 
-        try (Connection conn = datasourceFactory.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
-
+        try (
+                Connection conn = datasourceFactory.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql);
+        ) {
             statement.setString(1, obj.getName());
             statement.setLong(2, aLong);
 
@@ -53,8 +56,10 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
     public boolean delete(Long aLong) throws SQLException {
         final String sql = "DELETE FROM food_category WHERE id = ?";
 
-        try (Connection conn = datasourceFactory.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
+        try (
+                Connection conn = datasourceFactory.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql);
+        ) {
             statement.setLong(1, aLong);
 
             return statement.executeUpdate() == 1;
@@ -67,8 +72,10 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
     public Optional<FoodCategory> findById(Long aLong) throws SQLException {
         final String sql = "SELECT id, name, created_at FROM food_category WHERE id = ?";
 
-        try (Connection conn = datasourceFactory.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
+        try (
+                Connection conn = datasourceFactory.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql);
+        ) {
             statement.setLong(1, aLong);
 
             ResultSet resultSet = statement.executeQuery();
@@ -91,9 +98,10 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
     public List<FoodCategory> findAll() throws SQLException {
         final String sql = "SELECT * FROM food_category";
 
-        try (Connection conn = datasourceFactory.getConnection()) {
-            Statement statement = conn.createStatement();
-
+        try (
+                Connection conn = datasourceFactory.getConnection();
+                Statement statement = conn.createStatement();
+        ) {
             ResultSet resultSet = statement.executeQuery(sql);
             ArrayList<FoodCategory> result = new ArrayList<>(resultSet.getFetchSize());
 
