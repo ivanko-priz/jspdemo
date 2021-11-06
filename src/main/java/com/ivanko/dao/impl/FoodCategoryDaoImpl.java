@@ -3,7 +3,7 @@ package com.ivanko.dao.impl;
 import com.ivanko.dao.api.Dao;
 import com.ivanko.factory.DatasourceFactory;
 import com.ivanko.model.FoodCategory;
-import com.ivanko.util.mapper.MapSqlResultToFoodCategory;
+import com.ivanko.util.mapper.SqlResultToFoodCategoryMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
         Optional<FoodCategory> result;
 
         if (resultSet.next()) {
-            FoodCategory foodCategory = MapSqlResultToFoodCategory.map(resultSet);
+            FoodCategory foodCategory = SqlResultToFoodCategoryMapper.map(resultSet);
             result = Optional.of(foodCategory);
         } else {
             result = Optional.empty();
@@ -79,7 +79,7 @@ public class FoodCategoryDaoImpl implements Dao<FoodCategory, Long> {
         ArrayList<FoodCategory> result = new ArrayList<>(resultSet.getFetchSize());
 
         while(resultSet.next()) {
-            FoodCategory foodCategory = MapSqlResultToFoodCategory.map(resultSet);
+            FoodCategory foodCategory = SqlResultToFoodCategoryMapper.map(resultSet);
             result.add(foodCategory);
         }
 

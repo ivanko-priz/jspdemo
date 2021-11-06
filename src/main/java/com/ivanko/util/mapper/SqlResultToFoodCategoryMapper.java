@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import com.ivanko.model.FoodCategory;
 
-public class MapSqlResultToFoodCategory {
+public class SqlResultToFoodCategoryMapper {
     public static FoodCategory map(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong("id");
         String name = resultSet.getString("name");
