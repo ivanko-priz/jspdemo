@@ -14,9 +14,19 @@ public class FoodServiceImpl implements FoodService {
     private Dao<Food, Long> foodDao;
     private Dao<FoodCategory, Long> foodCategoryDao;
 
+    public FoodServiceImpl() {}
+
     public FoodServiceImpl(Dao<Food, Long> foodDao, Dao<FoodCategory, Long> foodCategoryDao) {
         this.foodDao = foodDao;
         this.foodCategoryDao = foodCategoryDao;
+    }
+
+    public void setFoodDao(Dao<Food, Long> dao) {
+        this.foodDao = dao;
+    }
+
+    public void setFoodCategoryDao(Dao<FoodCategory, Long> dao) {
+        this.foodCategoryDao = dao;
     }
 
     @Override
