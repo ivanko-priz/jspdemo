@@ -96,7 +96,21 @@ public class FoodDaoImpl implements Dao<Food, Long> {
         try (
                 Connection conn = datasourceFactory.getConnection();
                 PreparedStatement statement = conn.prepareStatement(sql);
+                PreparedStatement findAllStatement = conn.prepareStatement("SELECT * FROM food;");
         ) {
+            // setting autocommit to false to be able to work with transactions
+            conn.setAutoCommit(false);
+
+            /*
+                Using default MySQL isolation level - Repeatable Read
+
+                If weaker isolation levels are used there can be a case when
+                the first query that fetches record by id is  executed and after it
+                another transaction deletes (or updates) record with this id. in which case the second
+                query: 'SELECT * FROM food' would fetch data without this record resulting
+                in phantom read. To avoid such behaviour we need to use Reapeatable read isolation level.
+             */
+
             statement.setLong(1, aLong);
 
             ResultSet resultSet = statement.executeQuery();
@@ -108,6 +122,19 @@ public class FoodDaoImpl implements Dao<Food, Long> {
             } else {
                 result = Optional.empty();
             }
+
+            // Processing data from 2nd query;
+            ResultSet findAllStatementResultSet = findAllStatement.executeQuery();
+            List<Food> foodList = new ArrayList<>();
+            while(findAllStatementResultSet.next()) {
+                Food food = SqlResultToFoodMapper.mapToFood(resultSet);
+                foodList.add(food);
+            }
+            // Do something with the result
+            System.out.println(foodList);
+
+            // committing transaction
+            conn.commit();
 
             return result;
         } catch (SQLException e) {
