@@ -44,7 +44,7 @@ public interface FoodService {
      * @return List of Food
      * @throws SQLException
      */
-    List<Food> findAll() throws SQLException;
+    List<? extends Food> findAll() throws SQLException;
 
     /**
      * Fetches by Food object by id

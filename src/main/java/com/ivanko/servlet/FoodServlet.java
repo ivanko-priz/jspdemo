@@ -14,6 +14,7 @@ import com.ivanko.dao.impl.FoodDaoImpl;
 import com.ivanko.factory.DatasourceFactory;
 import com.ivanko.model.Food;
 import com.ivanko.model.FoodCategory;
+import com.ivanko.service.api.FoodCategoryService;
 import com.ivanko.service.api.FoodService;
 import com.ivanko.service.impl.FoodServiceImpl;
 
@@ -39,12 +40,12 @@ public class FoodServlet extends HttpServlet {
 
         try {
             if (path.equals("/")) {
-                List<?> foods = foodDao.findJoinedAll();
+                List<?> foods = foodService.findAll();
 
                 req.setAttribute("foods", foods);
                 req.getRequestDispatcher("listFood.jsp").forward(req, resp);
             } else if (path.equals("create")) {
-                List<FoodCategory> categories = foodCategoryDao.findAll();
+                List<FoodCategory> categories = foodCategoryService.findAll();
 
                 req.setAttribute("categories", categories);
                 req.getRequestDispatcher("../createFood.jsp").forward(req, resp);
@@ -58,7 +59,7 @@ public class FoodServlet extends HttpServlet {
                     return;
                 }
 
-                List<FoodCategory> categories = foodCategoryDao.findAll();
+                List<FoodCategory> categories = foodCategoryService.findAll();
 
                 req.setAttribute("categories", categories);
                 req.setAttribute("food", foodResult.get());
