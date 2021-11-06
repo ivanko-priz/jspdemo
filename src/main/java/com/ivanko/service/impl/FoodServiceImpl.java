@@ -43,8 +43,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<Food> findAll() throws SQLException {
-        return foodDao.findAll();
+    public List<? extends Food> findAll() throws SQLException {
+        return foodDao.findJoinedAll();
     }
 
     @Override
